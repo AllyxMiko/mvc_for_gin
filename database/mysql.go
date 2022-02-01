@@ -15,7 +15,7 @@ var dbError error
 func InitDataBase() {
 	DbConn, dbError = gorm.Open(mysql.Open(connectUrl()), &gorm.Config{})
 	if dbError != nil {
-		log.Fatal("数据库配置出现错误！请检查配置！")
+		log.Fatal("数据库配置出现错误！请检查配置！如果您不需要使用到数据库请在main函数中配置.NoDataBase()以此跳过数据库配置。")
 	}
 
 	DataBaseAutoMirgrate(DbConn)
