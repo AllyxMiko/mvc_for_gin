@@ -22,8 +22,8 @@ type ProjectConfig struct {
 }
 
 type Configs struct {
-	ProjectConfig  ProjectConfig  `mapstructure:"project"`
-	DataBaseConfig DataBaseConfig `mapstructure:"database"`
+	ProjectConfigs  ProjectConfig  `mapstructure:"project"`
+	DataBaseConfigs DataBaseConfig `mapstructure:"database"`
 }
 
 type ConfigManager struct {
@@ -32,8 +32,8 @@ type ConfigManager struct {
 }
 
 var Cfm = new(ConfigManager)
-var DbConfigs = Cfm.Configs.DataBaseConfig
-var PjtConfigs = Cfm.Configs.ProjectConfig
+var DbConfigs = &Cfm.Configs.DataBaseConfigs
+var PjtConfigs = &Cfm.Configs.ProjectConfigs
 
 func init() {
 	Cfm.Config = viper.New()

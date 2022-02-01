@@ -26,7 +26,9 @@ func init() {
 		log.Println("配置文件不存在，系统将自动生成！请按照说明修改配置文件！")
 		setting.CreateConfigsFile()
 	}
-
+	if !setting.PjtConfigs.Debug {
+		gin.SetMode(gin.ReleaseMode)
+	}
 }
 
 var Server = new(HttpServer)
@@ -55,6 +57,7 @@ func (h *HttpServer) Run() {
 	if !h.noDataBase {
 		db.InitDataBase()
 	}
+
 	router.RegisterRouter(h.Http)
-	h.Http.Run()
+	h.Http.Run(setting.PjtConfigs.Host + ":" + setting.PjtConfigs.Port)
 }

@@ -1,0 +1,23 @@
+# 项目的配置项
+project:
+  # web服务的地址
+  host: "localhost"
+  # web服务的端口号
+  port: 8080
+  # 是否开启debug模式
+  debug: false
+
+# 数据库配置项，目前仅支持mysql数据库
+database:
+  # 数据库主机
+  host: "127.0.0.1"
+  # 数据库用户名
+  user: "root"
+  # 数据库密码
+  passwd: "123456"
+  # 数据库端口
+  port: 3306
+  # 数据库名称
+  database: "demo"
+  # 数据库编码
+  charset: "utf8"
