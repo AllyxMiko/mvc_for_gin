@@ -18,8 +18,8 @@ func InitDataBase() {
 	if dbError != nil {
 		log.Fatal("数据库配置出现错误！请检查配置！如果您不需要使用到数据库请在main函数中配置.NoDataBase()以此跳过数据库配置。")
 	}
-
-	DataBaseAutoMirgrate(DbConn, setting.TableModels...)
+	// 进行数据表迁移
+	DataBaseAutoMirgrates(DbConn, setting.TableModels...)
 }
 
 func connectUrl() string {
