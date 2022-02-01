@@ -2,13 +2,16 @@ package libs
 
 import (
 	"mvc_for_gin/configs"
+	db "mvc_for_gin/database"
+	"mvc_for_gin/router"
 
 	"github.com/gin-gonic/gin"
 )
 
 type HttpServer struct {
-	Port int
-	Http *gin.Engine
+	Port        int
+	Http        *gin.Engine
+	useDataBase bool
 }
 
 var Server = new(HttpServer)
@@ -19,20 +22,15 @@ func (h *HttpServer) Default() *HttpServer {
 	return h
 }
 
-func (h *HttpServer) Run() {
-	h.Http.Run(":" + configs.Port)
+func (h *HttpServer) UseDataBase() *HttpServer {
+	h.useDataBase = true
+	return h
 }
 
-// func InitServer() (http *gin.Engine) {
-// 	// 初始化数据库
-// 	// db.InitDataBase()
-
-// 	// 启动http服务
-// http = gin.New()
-// 	// 应用全局中间件, logger为日志，recovery为错误恢复
-// 	http.Use(gin.Logger(), gin.Recovery())
-// 	// 注册路由
-// 	router.RegisterRouter(http)
-
-// 	return
-// }
+func (h *HttpServer) Run() {
+	if h.useDataBase {
+		db.InitDataBase()
+	}
+	router.RegisterRouter(h.Http)
+	h.Http.Run(":" + configs.Port)
+}
