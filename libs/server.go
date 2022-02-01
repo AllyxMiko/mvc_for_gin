@@ -41,5 +41,5 @@ func (h *HttpServer) Run() {
 		db.InitDataBase()
 	}
 	router.RegisterRouter(h.Http)
-	h.Http.Run(":" + configs.Port)
+	h.Http.Run(configs.Host + ":" + configs.Port)
 }
