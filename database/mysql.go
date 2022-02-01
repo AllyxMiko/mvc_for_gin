@@ -1,7 +1,9 @@
 package libs
 
 import (
+	"log"
 	"mvc_for_gin/configs"
+	"mvc_for_gin/setting"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -14,12 +16,18 @@ var dbError error
 func InitDataBase() {
 	DbConn, dbError = gorm.Open(mysql.Open(connectUrl()), &gorm.Config{})
 	if dbError != nil {
-		panic(dbError)
+		log.Fatal("数据库配置出现错误！请检查配置！如果您不需要使用到数据库请在main函数中配置.NoDataBase()以此跳过数据库配置。")
 	}
-
-	DataBaseAutoMirgrate(DbConn)
+	// 进行数据表迁移
+	DataBaseAutoMirgrates(DbConn, setting.TableModels...)
 }
 
 func connectUrl() string {
 	return configs.USER + ":" + configs.PASSWD + "@tcp(" + configs.HOST + ":" + configs.PORT + ")/" + configs.DATABASE + "?charset=utf8&parseTime=True&loc=Local"
+}
+
+// 在这里进行表迁移
+func DataBaseAutoMirgrates(d *gorm.DB, dst ...interface{}) {
+	// 进行表迁移
+	d.AutoMigrate(dst...)
 }
