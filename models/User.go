@@ -6,22 +6,3 @@ type User struct {
 	Age   int
 	Level int
 }
-
-type UserCC struct {
-	ID    int
-	Name  string
-	Age   int
-	Level int
-}
-type UserCD struct {
-	ID    int
-	Name  string
-	Age   int
-	Level int
-}
-type UserCDF struct {
-	ID    int
-	Name  string
-	Age   int
-	Level int
-}
