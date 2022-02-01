@@ -1,6 +1,7 @@
 package libs
 
 import (
+	"log"
 	"mvc_for_gin/configs"
 
 	"gorm.io/driver/mysql"
@@ -14,7 +15,7 @@ var dbError error
 func InitDataBase() {
 	DbConn, dbError = gorm.Open(mysql.Open(connectUrl()), &gorm.Config{})
 	if dbError != nil {
-		panic(dbError)
+		log.Fatal("数据库配置出现错误！请检查配置！")
 	}
 
 	DataBaseAutoMirgrate(DbConn)
