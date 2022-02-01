@@ -1,7 +1,10 @@
 package main
 
-import "mvc_for_gin/libs"
+import (
+	"fmt"
+)
 
 func main() {
-	libs.Server.Default().UseDataBase().Run()
+	// libs.Server.Default().Run()
+	fmt.Println()
 }
