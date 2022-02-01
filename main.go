@@ -3,5 +3,5 @@ package main
 import "mvc_for_gin/libs"
 
 func main() {
-	libs.Server.Default().NoDataBase().Run()
+	libs.Server.Default().Run()
 }

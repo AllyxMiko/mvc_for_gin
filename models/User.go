@@ -19,3 +19,9 @@ type UserCD struct {
 	Age   int
 	Level int
 }
+type UserCDF struct {
+	ID    int
+	Name  string
+	Age   int
+	Level int
+}

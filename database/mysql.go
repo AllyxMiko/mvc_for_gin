@@ -3,6 +3,7 @@ package libs
 import (
 	"log"
 	"mvc_for_gin/configs"
+	"mvc_for_gin/setting"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -18,7 +19,7 @@ func InitDataBase() {
 		log.Fatal("数据库配置出现错误！请检查配置！如果您不需要使用到数据库请在main函数中配置.NoDataBase()以此跳过数据库配置。")
 	}
 
-	DataBaseAutoMirgrate(DbConn)
+	DataBaseAutoMirgrate(DbConn, setting.TableModels...)
 }
 
 func connectUrl() string {
