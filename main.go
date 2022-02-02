@@ -2,6 +2,8 @@ package main
 
 import "mvc_for_gin/libs"
 
+var Server = libs.Server
+
 func main() {
-	libs.Server.Default().Run()
+	Server.Default().NoDataBase().Run()
 }

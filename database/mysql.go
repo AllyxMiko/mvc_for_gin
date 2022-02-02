@@ -2,7 +2,6 @@ package libs
 
 import (
 	"log"
-	"mvc_for_gin/configs"
 	"mvc_for_gin/setting"
 
 	"gorm.io/driver/mysql"
@@ -23,7 +22,16 @@ func InitDataBase() {
 }
 
 func connectUrl() string {
-	return configs.USER + ":" + configs.PASSWD + "@tcp(" + configs.HOST + ":" + configs.PORT + ")/" + configs.DATABASE + "?charset=utf8&parseTime=True&loc=Local"
+	return setting.DbConfigs.User +
+		":" +
+		setting.DbConfigs.Passwd +
+		"@tcp(" +
+		setting.DbConfigs.Host +
+		":" +
+		setting.DbConfigs.Port + ")/" +
+		setting.DbConfigs.Database +
+		"?charset=" + setting.DbConfigs.Charset +
+		"&parseTime=True&loc=Local"
 }
 
 // 在这里进行表迁移

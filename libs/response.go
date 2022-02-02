@@ -22,11 +22,11 @@ type WrongResponse struct {
 	Response
 }
 
-func Success(c *gin.Context, code int, data interface{}) {
+func Success(c *gin.Context, code int, msg string, data interface{}) {
 	c.JSON(http.StatusOK, SuccessResponse{
 		Response{
 			code,
-			S[code],
+			msg,
 		},
 		data,
 	})
@@ -36,7 +36,7 @@ func Faild(c *gin.Context, code int, msg string) {
 	c.JSON(http.StatusOK, WrongResponse{
 		Response{
 			code,
-			S[code],
+			msg,
 		},
 	})
 }
