@@ -5,7 +5,7 @@ project:
   # web服务的端口号
   port: 8080
   # 是否开启debug模式
-  debug: false
+  debug: true
 
 # 数据库配置项，目前仅支持mysql数据库
 database:

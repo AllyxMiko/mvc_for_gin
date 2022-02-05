@@ -2,6 +2,8 @@ package setting
 
 import (
 	"io/ioutil"
+	"log"
+	"os"
 
 	"github.com/spf13/viper"
 )
@@ -42,6 +44,18 @@ func init() {
 	Cfm.Config.Unmarshal(&Cfm.Configs)
 }
 
+func CheckConfigs() {
+	_, err := os.Stat("./configs/config.yaml")
+	if err != nil {
+		_, err = os.Stat("./configs")
+		if err != nil {
+			os.Mkdir("./configs", 0755)
+		}
+		CreateConfigsFile()
+		log.Fatal("配置文件不存在，系统将自动生成！请按照说明修改配置文件！然后重新启动项目！")
+	}
+}
+
 func CreateConfigsFile() {
 	demoFile := []byte(`# 项目的配置项
 project:
@@ -66,5 +80,5 @@ database:
   database: "demo"
   # 数据库编码
   charset: "utf8"`)
-	ioutil.WriteFile("./configs/config.yaml", demoFile, 0777)
+	ioutil.WriteFile("./configs/config.yaml", demoFile, 0755)
 }

@@ -1,4 +1,4 @@
-package libs
+package response
 
 import (
 	"net/http"
