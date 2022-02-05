@@ -2,6 +2,7 @@ package server
 
 import (
 	db "mvc_for_gin/database"
+	"mvc_for_gin/middleware"
 	"mvc_for_gin/router"
 	"mvc_for_gin/setting"
 
@@ -45,8 +46,8 @@ func (h *HttpServer) NoDataBase() *HttpServer {
 func (h *HttpServer) Run() {
 	if !h.noDataBase {
 		db.InitDataBase()
+		h.Use(middleware.DbContext())
 	}
-
 	router.RegisterRouter(h.Http)
 	h.Http.Run(setting.PjtConfigs.Host + ":" + setting.PjtConfigs.Port)
 }

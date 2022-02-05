@@ -22,7 +22,11 @@ type WrongResponse struct {
 	Response
 }
 
-func Msg(c *gin.Context, code int, msg string) {
+func StringMsg(c *gin.Context, msg string) {
+	c.String(http.StatusOK, msg)
+}
+
+func JsonMsg(c *gin.Context, code int, msg string) {
 	c.JSON(http.StatusOK, Response{
 		code,
 		msg,
