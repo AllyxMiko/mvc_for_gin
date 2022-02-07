@@ -53,3 +53,4 @@ http.Default().NoDataBase().Run()
 这样您就不需要对数据库进行配置（有数据库配置项也不会生效！）  
 Default()中有两个默认中间件，，即gin框架本身的logger()和recovery()  
 不需要使用这两个中间件的话请使用New()
+
