@@ -12,6 +12,8 @@ import (
 type HttpServer struct {
 	Http       *gin.Engine
 	noDataBase bool
+	loadHTML   bool
+	temp       string
 }
 
 var Http = new(HttpServer)
@@ -43,12 +45,20 @@ func (h *HttpServer) NoDataBase() *HttpServer {
 	return h
 }
 
+func (h *HttpServer) LoadHTML(partten string) *HttpServer {
+	h.loadHTML = true
+	h.temp = partten
+	return h
+}
+
 func (h *HttpServer) Run() {
 	if !h.noDataBase {
 		db.InitDataBase()
 		h.Use(middleware.DbContext())
 	}
-	h.Http.LoadHTMLGlob("views/*")
+	if h.loadHTML {
+		h.Http.LoadHTMLGlob(h.temp)
+	}
 	router.RegisterRouter(h.Http)
 	h.Http.Run(setting.PjtConfigs.Host + ":" + setting.PjtConfigs.Port)
 }
