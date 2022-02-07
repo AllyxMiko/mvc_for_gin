@@ -48,6 +48,7 @@ func (h *HttpServer) Run() {
 		db.InitDataBase()
 		h.Use(middleware.DbContext())
 	}
+	h.Http.LoadHTMLGlob("views/*")
 	router.RegisterRouter(h.Http)
 	h.Http.Run(setting.PjtConfigs.Host + ":" + setting.PjtConfigs.Port)
 }

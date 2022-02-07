@@ -12,7 +12,9 @@ import (
 // 注册用户，为了演示方便，只要用户名，密码
 func RegisterUser(c *gin.Context) {
 	info := models.User{}
-	c.BindJSON(&info)
+	// c.BindJSON(&info)
+	info.Username = c.PostForm("username")
+	info.Password = c.PostForm("password")
 	if info.Username == "" || info.Password == "" {
 		response.JsonMsg(c, 500, "请求参数不完整！")
 		return
@@ -41,4 +43,8 @@ func FindUser(c *gin.Context) {
 		return
 	}
 	response.SendData(c, 200, "查询成功！", user)
+}
+
+func Login(c *gin.Context) {
+	c.HTML(200, "login.html", "")
 }
