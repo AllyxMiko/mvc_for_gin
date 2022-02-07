@@ -1,37 +1,27 @@
-package libs
+package server
 
 import (
-	"log"
 	db "mvc_for_gin/database"
+	"mvc_for_gin/middleware"
 	"mvc_for_gin/router"
 	"mvc_for_gin/setting"
-	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 type HttpServer struct {
-	Port       int
 	Http       *gin.Engine
 	noDataBase bool
 }
 
+var Http = new(HttpServer)
+
 func init() {
-	_, err := os.Stat("./configs/config.yaml")
-	if err != nil {
-		_, err = os.Stat("./configs")
-		if err != nil {
-			os.Mkdir("./configs", 0777)
-		}
-		log.Println("配置文件不存在，系统将自动生成！请按照说明修改配置文件！")
-		setting.CreateConfigsFile()
-	}
+	setting.CheckConfigs()
 	if !setting.PjtConfigs.Debug {
 		gin.SetMode(gin.ReleaseMode)
 	}
 }
-
-var Server = new(HttpServer)
 
 func (h *HttpServer) New() *HttpServer {
 	h.Http = gin.New()
@@ -56,8 +46,9 @@ func (h *HttpServer) NoDataBase() *HttpServer {
 func (h *HttpServer) Run() {
 	if !h.noDataBase {
 		db.InitDataBase()
+		h.Use(middleware.DbContext())
 	}
-
+	h.Http.LoadHTMLGlob("views/*")
 	router.RegisterRouter(h.Http)
 	h.Http.Run(setting.PjtConfigs.Host + ":" + setting.PjtConfigs.Port)
 }

@@ -1,9 +1,9 @@
 package main
 
-import "mvc_for_gin/libs"
+import "mvc_for_gin/libs/server"
 
-var Server = libs.Server
+var http = new(server.HttpServer)
 
 func main() {
-	Server.Default().NoDataBase().Run()
+	http.Default().Run()
 }

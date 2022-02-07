@@ -1,4 +1,4 @@
-package libs
+package database
 
 import (
 	"log"
@@ -13,7 +13,10 @@ var dbError error
 
 // 初始化数据库
 func InitDataBase() {
-	DbConn, dbError = gorm.Open(mysql.Open(connectUrl()), &gorm.Config{})
+	DbConn, dbError = gorm.Open(mysql.Open(connectUrl()), &gorm.Config{
+		SkipDefaultTransaction: true,
+		PrepareStmt:            true,
+	})
 	if dbError != nil {
 		log.Fatal("数据库配置出现错误！请检查配置！如果您不需要使用到数据库请在main函数中配置.NoDataBase()以此跳过数据库配置。")
 	}
@@ -34,7 +37,6 @@ func connectUrl() string {
 		"&parseTime=True&loc=Local"
 }
 
-// 在这里进行表迁移
 func DataBaseAutoMirgrates(d *gorm.DB, dst ...interface{}) {
 	// 进行表迁移
 	d.AutoMigrate(dst...)
