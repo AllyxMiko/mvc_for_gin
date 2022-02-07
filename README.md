@@ -52,5 +52,7 @@ http.Default().NoDataBase().Run()
 ```
 这样您就不需要对数据库进行配置（有数据库配置项也不会生效！）  
 Default()中有两个默认中间件，，即gin框架本身的logger()和recovery()  
-不需要使用这两个中间件的话请使用New()
+不需要使用这两个中间件的话请使用New()  
+如果您使用了html模板请在后面加上.LoadHTML，并传入指定的模板目录  
+"views/*"表示加载views下的所有html模板，，详细请参见gin的html模板
 
